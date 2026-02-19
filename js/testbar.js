@@ -327,6 +327,82 @@
   var isOpen = false;
   var toggleBtn = null;
 
+  /* -- Color utility helpers -- */
+  function hexToRgb(hex) {
+    var r = parseInt(hex.substring(1, 3), 16);
+    var g = parseInt(hex.substring(3, 5), 16);
+    var b = parseInt(hex.substring(5, 7), 16);
+    return { r: r, g: g, b: b };
+  }
+
+  function rgbToHex(r, g, b) {
+    return '#' + ((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1);
+  }
+
+  function luminance(rgb) {
+    return (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+  }
+
+  function mixColor(hex, target, amount) {
+    var c = hexToRgb(hex);
+    var t = hexToRgb(target);
+    return rgbToHex(
+      c.r + (t.r - c.r) * amount,
+      c.g + (t.g - c.g) * amount,
+      c.b + (t.b - c.b) * amount
+    );
+  }
+
+  function lighten(hex, amount) { return mixColor(hex, '#FFFFFF', amount); }
+  function darken(hex, amount) { return mixColor(hex, '#000000', amount); }
+
+  /* Generate a full scheme from just bg + accent */
+  function generateScheme(bgHex, accentHex) {
+    var bgRgb = hexToRgb(bgHex);
+    var accentRgb = hexToRgb(accentHex);
+    var isLight = luminance(bgRgb) > 0.5;
+
+    var bgAlt = isLight ? darken(bgHex, 0.05) : lighten(bgHex, 0.05);
+    var bgElevated = isLight ? lighten(bgHex, 0.3) : lighten(bgHex, 0.08);
+    var bgDark = darken(bgHex, 0.08);
+    var text = isLight ? '#1A1A1A' : '#F5F5F5';
+    var textMuted = isLight ? '#666666' : '#8A8A8A';
+    var accentHover = lighten(accentHex, 0.15);
+    var borderAlpha = isLight ? '0, 0, 0' : '255, 255, 255';
+
+    return {
+      '--bg': bgHex,
+      '--bg-alt': bgAlt,
+      '--bg-elevated': bgElevated,
+      '--bg-dark': bgDark,
+      '--text': text,
+      '--text-muted': textMuted,
+      '--accent': accentHex,
+      '--accent-hover': accentHover,
+      '--accent-light': 'rgba(' + accentRgb.r + ', ' + accentRgb.g + ', ' + accentRgb.b + ', ' + (isLight ? '0.08' : '0.1') + ')',
+      '--accent-glow': 'rgba(' + accentRgb.r + ', ' + accentRgb.g + ', ' + accentRgb.b + ', 0.3)',
+      '--border': 'rgba(' + borderAlpha + ', ' + (isLight ? '0.1' : '0.08') + ')',
+      '--border-light': 'rgba(' + borderAlpha + ', 0.15)',
+      '--overlay': 'rgba(' + bgRgb.r + ', ' + bgRgb.g + ', ' + bgRgb.b + ', 0.7)',
+      '--overlay-heavy': 'rgba(' + bgRgb.r + ', ' + bgRgb.g + ', ' + bgRgb.b + ', 0.9)'
+    };
+  }
+
+  function applyCustomScheme(bgHex, accentHex) {
+    var vars = generateScheme(bgHex, accentHex);
+    var keys = Object.keys(vars);
+    for (var i = 0; i < keys.length; i++) {
+      document.documentElement.style.setProperty(keys[i], vars[keys[i]]);
+    }
+    document.documentElement.style.setProperty('--shadow-accent', '0 4px 20px ' + vars['--accent-glow']);
+    document.documentElement.style.setProperty('--shadow-accent-lg', '0 8px 40px ' + vars['--accent-glow']);
+    /* deselect preset swatches */
+    updateActivePills('scheme', -1);
+    localStorage.setItem('testbar-custom-bg', bgHex);
+    localStorage.setItem('testbar-custom-accent', accentHex);
+    localStorage.removeItem('testbar-scheme');
+  }
+
   function loadFont(font) {
     if (!font.gfont || loadedFonts[font.name]) return;
     var link = document.createElement('link');
@@ -368,12 +444,21 @@
     document.documentElement.style.setProperty('--shadow-accent', '0 4px 20px ' + scheme.vars['--accent-glow']);
     document.documentElement.style.setProperty('--shadow-accent-lg', '0 8px 40px ' + scheme.vars['--accent-glow']);
     localStorage.setItem('testbar-scheme', index);
+    localStorage.removeItem('testbar-custom-bg');
+    localStorage.removeItem('testbar-custom-accent');
     updateActivePills('scheme', index);
+    /* sync pickers to preset colors */
+    var bgPicker = document.getElementById('tb-custom-bg');
+    var accentPicker = document.getElementById('tb-custom-accent');
+    if (bgPicker) bgPicker.value = scheme.vars['--bg'];
+    if (accentPicker) accentPicker.value = scheme.vars['--accent'];
   }
 
   function resetAll() {
     localStorage.removeItem('testbar-font');
     localStorage.removeItem('testbar-scheme');
+    localStorage.removeItem('testbar-custom-bg');
+    localStorage.removeItem('testbar-custom-accent');
     var props = ['--font-display', '--bg', '--bg-alt', '--bg-elevated', '--bg-dark',
       '--text', '--text-muted', '--accent', '--accent-hover', '--accent-light', '--accent-glow',
       '--border', '--border-light', '--overlay', '--overlay-heavy',
@@ -383,6 +468,11 @@
     }
     updateActivePills('font', 0);
     updateActivePills('scheme', 0);
+    /* reset color pickers to defaults */
+    var bgPicker = document.getElementById('tb-custom-bg');
+    var accentPicker = document.getElementById('tb-custom-accent');
+    if (bgPicker) bgPicker.value = '#0A0A0A';
+    if (accentPicker) accentPicker.value = '#FF3D00';
   }
 
   function updateActivePills(type, index) {
@@ -434,6 +524,19 @@
         '.tb-swatch-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;}' +
         '.tb-group-label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.1em;' +
           'font-family:"Space Mono",monospace;padding:2px 8px;flex-shrink:0;}' +
+        '.tb-custom{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;' +
+          'padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;}' +
+        '.tb-custom-label{font-family:"Space Mono",monospace;font-size:10px;color:#666;text-transform:uppercase;' +
+          'letter-spacing:0.1em;}' +
+        '.tb-color-group{display:flex;align-items:center;gap:6px;}' +
+        '.tb-color-input{width:36px;height:36px;border:2px solid rgba(255,255,255,0.2);border-radius:8px;' +
+          'cursor:pointer;padding:0;background:none;-webkit-appearance:none;appearance:none;}' +
+        '.tb-color-input::-webkit-color-swatch-wrapper{padding:0;}' +
+        '.tb-color-input::-webkit-color-swatch{border:none;border-radius:6px;}' +
+        '.tb-color-input::-moz-color-swatch{border:none;border-radius:6px;}' +
+        '.tb-color-input:hover{border-color:rgba(255,255,255,0.5);transform:scale(1.05);}' +
+        '.tb-color-hex{font-family:"Space Mono",monospace;font-size:11px;color:#aaa;min-width:62px;}' +
+        '.tb-custom-plus{font-size:16px;color:#555;margin:0 4px;}' +
         '#tb-toggle{position:fixed;bottom:20px;right:20px;z-index:1000;padding:10px 20px;' +
           'font-family:"Space Mono",monospace;font-size:12px;font-weight:700;text-transform:uppercase;' +
           'letter-spacing:0.15em;color:#fff;background:#FF3D00;border:none;border-radius:999px;cursor:pointer;' +
@@ -442,7 +545,8 @@
         '#tb-toggle.tb-btn-active{background:#333;box-shadow:0 4px 12px rgba(0,0,0,0.4);}' +
       '</style>' +
       '<div class="tb-section" id="tb-fonts-section"></div>' +
-      '<div class="tb-section" id="tb-schemes-section"></div>';
+      '<div class="tb-section" id="tb-schemes-section"></div>' +
+      '<div class="tb-section" id="tb-custom-section"></div>';
 
     /* fonts section */
     var fontsSection = bar.querySelector('#tb-fonts-section');
@@ -515,6 +619,74 @@
     }
     schemesSection.appendChild(schemesRow);
 
+    /* custom color picker section */
+    var customSection = bar.querySelector('#tb-custom-section');
+    customSection.innerHTML = '<div class="tb-section-head"><span class="tb-label">Custom Colors</span><span class="tb-divider"></span></div>';
+
+    var customRow = document.createElement('div');
+    customRow.className = 'tb-custom';
+
+    var savedCustomBg = localStorage.getItem('testbar-custom-bg') || '#0A0A0A';
+    var savedCustomAccent = localStorage.getItem('testbar-custom-accent') || '#FF3D00';
+
+    /* bg picker */
+    var bgGroup = document.createElement('div');
+    bgGroup.className = 'tb-color-group';
+    var bgLabel = document.createElement('span');
+    bgLabel.className = 'tb-custom-label';
+    bgLabel.textContent = 'Background';
+    var bgInput = document.createElement('input');
+    bgInput.type = 'color';
+    bgInput.id = 'tb-custom-bg';
+    bgInput.className = 'tb-color-input';
+    bgInput.value = savedCustomBg;
+    var bgHex = document.createElement('span');
+    bgHex.className = 'tb-color-hex';
+    bgHex.id = 'tb-custom-bg-hex';
+    bgHex.textContent = savedCustomBg;
+    bgGroup.appendChild(bgLabel);
+    bgGroup.appendChild(bgInput);
+    bgGroup.appendChild(bgHex);
+
+    var plus = document.createElement('span');
+    plus.className = 'tb-custom-plus';
+    plus.textContent = '+';
+
+    /* accent picker */
+    var accentGroup = document.createElement('div');
+    accentGroup.className = 'tb-color-group';
+    var accentLabel = document.createElement('span');
+    accentLabel.className = 'tb-custom-label';
+    accentLabel.textContent = 'Accent';
+    var accentInput = document.createElement('input');
+    accentInput.type = 'color';
+    accentInput.id = 'tb-custom-accent';
+    accentInput.className = 'tb-color-input';
+    accentInput.value = savedCustomAccent;
+    var accentHexEl = document.createElement('span');
+    accentHexEl.className = 'tb-color-hex';
+    accentHexEl.id = 'tb-custom-accent-hex';
+    accentHexEl.textContent = savedCustomAccent;
+    accentGroup.appendChild(accentLabel);
+    accentGroup.appendChild(accentInput);
+    accentGroup.appendChild(accentHexEl);
+
+    customRow.appendChild(bgGroup);
+    customRow.appendChild(plus);
+    customRow.appendChild(accentGroup);
+    customSection.appendChild(customRow);
+
+    /* live update on color change */
+    function onPickerChange() {
+      var bg = bgInput.value;
+      var accent = accentInput.value;
+      bgHex.textContent = bg;
+      accentHexEl.textContent = accent;
+      applyCustomScheme(bg, accent);
+    }
+    bgInput.addEventListener('input', onPickerChange);
+    accentInput.addEventListener('input', onPickerChange);
+
     bar.querySelector('#tb-reset-btn').addEventListener('click', resetAll);
     document.body.appendChild(bar);
   }
@@ -525,8 +697,18 @@
       loadAllFonts();
       var savedFont = localStorage.getItem('testbar-font');
       var savedScheme = localStorage.getItem('testbar-scheme');
+      var savedCBg = localStorage.getItem('testbar-custom-bg');
+      var savedCAcc = localStorage.getItem('testbar-custom-accent');
       updateActivePills('font', savedFont !== null ? parseInt(savedFont, 10) : 0);
-      updateActivePills('scheme', savedScheme !== null ? parseInt(savedScheme, 10) : 0);
+      if (savedCBg && savedCAcc) {
+        updateActivePills('scheme', -1);
+        var bgP = document.getElementById('tb-custom-bg');
+        var accP = document.getElementById('tb-custom-accent');
+        if (bgP) { bgP.value = savedCBg; document.getElementById('tb-custom-bg-hex').textContent = savedCBg; }
+        if (accP) { accP.value = savedCAcc; document.getElementById('tb-custom-accent-hex').textContent = savedCAcc; }
+      } else {
+        updateActivePills('scheme', savedScheme !== null ? parseInt(savedScheme, 10) : 0);
+      }
     }
     isOpen = !isOpen;
     if (isOpen) {
@@ -550,7 +732,13 @@
 
   var savedFont = localStorage.getItem('testbar-font');
   var savedScheme = localStorage.getItem('testbar-scheme');
+  var savedCustomBgInit = localStorage.getItem('testbar-custom-bg');
+  var savedCustomAccentInit = localStorage.getItem('testbar-custom-accent');
   if (savedFont !== null) applyFont(parseInt(savedFont, 10));
-  if (savedScheme !== null) applyScheme(parseInt(savedScheme, 10));
+  if (savedCustomBgInit && savedCustomAccentInit) {
+    applyCustomScheme(savedCustomBgInit, savedCustomAccentInit);
+  } else if (savedScheme !== null) {
+    applyScheme(parseInt(savedScheme, 10));
+  }
 
 })();
