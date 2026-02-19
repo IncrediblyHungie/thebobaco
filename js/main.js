@@ -23,7 +23,9 @@
     menuToggle.classList.toggle('active');
     mobileMenu.classList.toggle('active');
     mobileOverlay.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    var isOpen = mobileMenu.classList.contains('active');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    menuToggle.setAttribute('aria-expanded', isOpen);
   }
 
   function closeMobileMenu() {
@@ -32,6 +34,7 @@
     mobileMenu.classList.remove('active');
     mobileOverlay.classList.remove('active');
     document.body.style.overflow = '';
+    menuToggle.setAttribute('aria-expanded', 'false');
   }
 
   // Scroll reveal animations

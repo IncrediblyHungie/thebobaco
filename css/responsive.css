@@ -73,12 +73,9 @@
 
 /* Touch Devices */
 @media (hover: none) and (pointer: coarse) {
-  .card:hover {
+  .drink-card:hover {
     transform: none;
     box-shadow: none;
-  }
-  .nav-link::after {
-    display: none;
   }
 }
 
@@ -98,7 +95,7 @@
 
 /* Print */
 @media print {
-  .nav, .menu-toggle, .mobile-menu, .mobile-overlay, .footer, .marquee, .cta-band, .btn, .scroll-indicator {
+  .nav, .menu-toggle, .mobile-menu, .mobile-overlay, .footer, .sticky-order, .btn {
     display: none !important;
   }
   body {
@@ -111,6 +108,6 @@
     page-break-after: avoid;
   }
   a { color: #000; text-decoration: underline; }
-  .card { border: 1px solid #ccc; background: none; box-shadow: none; }
+  .drink-card { border: 1px solid #ccc; background: none; box-shadow: none; }
   .section { padding: 1rem 0; }
 }
