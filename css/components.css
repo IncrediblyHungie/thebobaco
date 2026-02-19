@@ -136,11 +136,25 @@
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: var(--bg) url('../img/hero-bg.jpg') center/cover no-repeat;
+  background: var(--bg);
   z-index: var(--z-behind);
 }
 
-.hero-bg::after {
+/* When video is ready, add <video> inside .hero-bg:
+   <video class="hero-video" autoplay muted loop playsinline>
+     <source src="/video/hero.mp4" type="video/mp4">
+   </video>
+*/
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-video + .hero-overlay,
+.hero-bg:has(.hero-video)::after {
   content: '';
   position: absolute;
   inset: 0;
