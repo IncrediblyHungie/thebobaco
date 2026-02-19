@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — The Boba Co.</title>
+  <meta name="description" content="Explore the full boba tea menu at The Boba Co. Milk teas, fruit teas, matcha, smoothies, shaved snow, and more — all hand-crafted in Poway, CA.">
+  <link rel="canonical" href="https://thebobaco.com/menu.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Menu — The Boba Co.">
+  <meta property="og:description" content="Explore the full boba tea menu at The Boba Co. Milk teas, fruit teas, matcha, smoothies, and more — hand-crafted in Poway, CA.">
+  <meta property="og:url" content="https://thebobaco.com/menu.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Boba Co.">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Menu — The Boba Co.">
+  <meta name="twitter:description" content="Explore the full boba tea menu at The Boba Co. Milk teas, fruit teas, matcha, smoothies, and more — hand-crafted in Poway, CA.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "The Boba Co.",
+    "url": "https://thebobaco.com/",
+    "description": "Hand-crafted boba tea in Poway, California. Fresh ingredients, real fruit, and carefully sourced tea — made to order.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Poway",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "priceRange": "$",
+    "servesCuisine": "Boba Tea",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "11:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "11:00",
+        "closes": "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "12:00",
+        "closes": "20:00"
+      }
+    ]
+  }
+  </script>
+
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="nav" id="nav">
+    <div class="nav-inner container">
+      <a href="/" class="logo">THE BOBA CO.</a>
+      <div class="nav-links">
+        <a href="/menu.html" class="nav-link">Menu</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/order.html" class="nav-link btn btn-primary btn-sm">Order Now</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="/" class="mobile-menu-link">Home</a>
+    <a href="/menu.html" class="mobile-menu-link">Menu</a>
+    <a href="/about.html" class="mobile-menu-link">About</a>
+    <a href="/order.html" class="mobile-menu-link">Order Now</a>
+  </nav>
+
+  <main>
+
+    <!-- Menu Header -->
+    <section class="section" style="padding-bottom: 0;">
+      <div class="container">
+        <h1>Our Menu</h1>
+        <p class="section-subtitle mt-4">Hand-crafted drinks made fresh to order</p>
+      </div>
+    </section>
+
+    <!-- Category Filter + Drink Cards -->
+    <section class="section">
+      <div class="container">
+        <div class="category-filter mb-8">
+          <button class="category-pill active" data-category="all">All</button>
+          <button class="category-pill" data-category="milk-teas">Milk Teas</button>
+          <button class="category-pill" data-category="premium-milk-teas">Premium Milk Teas</button>
+          <button class="category-pill" data-category="fruit-teas">Fruit Teas</button>
+          <button class="category-pill" data-category="matcha">Matcha</button>
+          <button class="category-pill" data-category="fruit-milks">Fruit Milks</button>
+          <button class="category-pill" data-category="coffee">Coffee</button>
+          <button class="category-pill" data-category="smoothies">Smoothies</button>
+          <button class="category-pill" data-category="shaved-snow">Shaved Snow</button>
+        </div>
+        <div class="grid-3 reveal-group">
+
+          <!-- Milk Teas -->
+          <div class="drink-card" data-category="milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Classic Milk Tea</h3>
+              <span class="drink-card-price">$5.50</span>
+              <p class="drink-card-desc">Our signature milk tea with tapioca pearls</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Taro Milk Tea</h3>
+              <span class="drink-card-price">$6.00</span>
+              <p class="drink-card-desc">Creamy taro with fresh boba</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Thai Tea</h3>
+              <span class="drink-card-price">$5.50</span>
+              <p class="drink-card-desc">Sweet and aromatic Thai-style tea</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Wintermelon Milk Tea</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Refreshing wintermelon with milk tea</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Honeydew Milk Tea</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Sweet honeydew blended with milk tea</p>
+            </div>
+          </div>
+
+          <!-- Premium Milk Teas -->
+          <div class="drink-card" data-category="premium-milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Brown Sugar Boba</h3>
+              <span class="drink-card-price">$6.25</span>
+              <p class="drink-card-desc">Tiger-striped brown sugar with fresh milk</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="premium-milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Dirty Matcha</h3>
+              <span class="drink-card-price">$6.50</span>
+              <p class="drink-card-desc">Espresso meets matcha with cream</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="premium-milk-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Ube Milk Tea</h3>
+              <span class="drink-card-price">$6.50</span>
+              <p class="drink-card-desc">Purple yam milk tea with boba</p>
+            </div>
+          </div>
+
+          <!-- Fruit Teas -->
+          <div class="drink-card" data-category="fruit-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Mango Fruit Tea</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Fresh mango with green tea</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="fruit-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Passion Fruit Tea</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Tropical passion fruit with jasmine tea</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="fruit-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Lychee Fruit Tea</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Sweet lychee with green tea</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="fruit-teas">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Peach Fruit Tea</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Juicy peach with oolong tea</p>
+            </div>
+          </div>
+
+          <!-- Matcha -->
+          <div class="drink-card" data-category="matcha">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Matcha Latte</h3>
+              <span class="drink-card-price">$6.50</span>
+              <p class="drink-card-desc">Premium matcha with steamed milk</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="matcha">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Matcha Fruit Tea</h3>
+              <span class="drink-card-price">$6.00</span>
+              <p class="drink-card-desc">Matcha blended with citrus and tea</p>
+            </div>
+          </div>
+
+          <!-- Fruit Milks -->
+          <div class="drink-card" data-category="fruit-milks">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Strawberry Milk</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Fresh strawberry blended with milk</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="fruit-milks">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Mango Milk</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Tropical mango with creamy milk</p>
+            </div>
+          </div>
+
+          <!-- Coffee -->
+          <div class="drink-card" data-category="coffee">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Vietnamese Coffee</h3>
+              <span class="drink-card-price">$5.50</span>
+              <p class="drink-card-desc">Strong drip coffee with condensed milk</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="coffee">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Iced Latte</h3>
+              <span class="drink-card-price">$5.75</span>
+              <p class="drink-card-desc">Smooth espresso over ice with milk</p>
+            </div>
+          </div>
+
+          <!-- Smoothies -->
+          <div class="drink-card" data-category="smoothies">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Mango Smoothie</h3>
+              <span class="drink-card-price">$6.50</span>
+              <p class="drink-card-desc">Fresh mango blended smooth</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="smoothies">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Strawberry Smoothie</h3>
+              <span class="drink-card-price">$6.50</span>
+              <p class="drink-card-desc">Sweet strawberry blended smooth</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="smoothies">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Taro Smoothie</h3>
+              <span class="drink-card-price">$6.75</span>
+              <p class="drink-card-desc">Creamy taro blended smooth</p>
+            </div>
+          </div>
+
+          <!-- Shaved Snow -->
+          <div class="drink-card" data-category="shaved-snow">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Mango Shaved Snow</h3>
+              <span class="drink-card-price">$7.50</span>
+              <p class="drink-card-desc">Fluffy shaved ice with mango flavor</p>
+            </div>
+          </div>
+          <div class="drink-card" data-category="shaved-snow">
+            <div class="drink-card-img">Photo coming soon</div>
+            <div class="drink-card-body">
+              <h3 class="drink-card-name">Taro Shaved Snow</h3>
+              <span class="drink-card-price">$7.50</span>
+              <p class="drink-card-desc">Creamy taro shaved ice</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Sticky Order CTA -->
+    <div class="sticky-order">
+      <a href="/order.html" class="btn btn-primary btn-lg">Order Now — Pick Up in Poway</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="footer-logo">THE BOBA CO.</a>
+          <p class="footer-tagline">Hand-crafted boba tea in Poway, CA</p>
+        </div>
+        <div>
+          <p class="footer-heading">Navigate</p>
+          <a href="/" class="footer-link">Home</a>
+          <a href="/menu.html" class="footer-link">Menu</a>
+          <a href="/order.html" class="footer-link">Order</a>
+          <a href="/about.html" class="footer-link">About</a>
+        </div>
+        <div>
+          <p class="footer-heading">Connect</p>
+          <a href="https://instagram.com/thebobaco_poway" class="footer-link" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Boba Co. All rights reserved.</p>
+        <div class="social-links">
+          <a href="https://instagram.com/thebobaco_poway" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
