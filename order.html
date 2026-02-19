@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Online — The Boba Co.</title>
+  <meta name="description" content="Order boba tea online for pickup at The Boba Co. in Poway, CA. Fresh hand-crafted drinks ready when you arrive.">
+  <link rel="canonical" href="https://thebobaco.com/order.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Order Online — The Boba Co.">
+  <meta property="og:description" content="Order boba tea online for pickup at The Boba Co. in Poway, CA. Fresh hand-crafted drinks ready when you arrive.">
+  <meta property="og:url" content="https://thebobaco.com/order.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Boba Co.">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Order Online — The Boba Co.">
+  <meta name="twitter:description" content="Order boba tea online for pickup at The Boba Co. in Poway, CA. Fresh hand-crafted drinks ready when you arrive.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "The Boba Co.",
+    "url": "https://thebobaco.com/",
+    "description": "Hand-crafted boba tea in Poway, California. Fresh ingredients, real fruit, and carefully sourced tea — made to order.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Poway",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "priceRange": "$",
+    "servesCuisine": "Boba Tea",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "11:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "11:00",
+        "closes": "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "12:00",
+        "closes": "20:00"
+      }
+    ]
+  }
+  </script>
+
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="nav" id="nav">
+    <div class="nav-inner container">
+      <a href="/" class="logo">THE BOBA CO.</a>
+      <div class="nav-links">
+        <a href="/menu.html" class="nav-link">Menu</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/order.html" class="nav-link btn btn-primary btn-sm">Order Now</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="/" class="mobile-menu-link">Home</a>
+    <a href="/menu.html" class="mobile-menu-link">Menu</a>
+    <a href="/about.html" class="mobile-menu-link">About</a>
+    <a href="/order.html" class="mobile-menu-link">Order Now</a>
+  </nav>
+
+  <main>
+
+    <!-- Order Header -->
+    <section class="section">
+      <div class="container text-center">
+        <h1>Order Online</h1>
+        <p class="section-subtitle mt-4" style="margin-left: auto; margin-right: auto;">Pick up at our Poway location</p>
+      </div>
+    </section>
+
+    <!-- Square Embed -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="square-embed">
+          <p style="text-align: center; color: var(--text-muted); padding: var(--space-16) 0;">
+            Square ordering widget will appear here.<br>
+            <small>Connect your Square account to enable online ordering.</small>
+          </p>
+          <!-- When ready, replace above with:
+          <a href="https://mkt.com/thebobaco" class="sq-embed-menu" data-menu-accent-color="FF3D00">Order Online</a>
+          <script src="https://cdn.sq-api.com/market/embed.js" charset="utf-8"></script>
+          -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Pickup Info -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <div class="info-grid">
+          <div>
+            <p class="info-label">Pickup Location</p>
+            <p>Poway, CA</p>
+            <p class="mt-2" style="color: var(--text-muted);">Exact address coming soon</p>
+          </div>
+          <div>
+            <p class="info-label">Hours</p>
+            <dl class="hours-list">
+              <dt>Monday – Friday</dt><dd>11am – 9pm</dd>
+              <dt>Saturday</dt><dd>11am – 10pm</dd>
+              <dt>Sunday</dt><dd>12pm – 8pm</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="footer-logo">THE BOBA CO.</a>
+          <p class="footer-tagline">Hand-crafted boba tea in Poway, CA</p>
+        </div>
+        <div>
+          <p class="footer-heading">Navigate</p>
+          <a href="/" class="footer-link">Home</a>
+          <a href="/menu.html" class="footer-link">Menu</a>
+          <a href="/order.html" class="footer-link">Order</a>
+          <a href="/about.html" class="footer-link">About</a>
+        </div>
+        <div>
+          <p class="footer-heading">Connect</p>
+          <a href="https://instagram.com/thebobaco_poway" class="footer-link" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Boba Co. All rights reserved.</p>
+        <div class="social-links">
+          <a href="https://instagram.com/thebobaco_poway" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
