@@ -144,8 +144,18 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(5, 5, 5, 0.6);
+  background: rgba(5, 5, 5, 0.05);
   z-index: 1;
+}
+
+/* Scanline texture over hero for atmosphere */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
 }
 .hero-video {
   position: absolute;
@@ -165,8 +175,9 @@
 
 .hero-content {
   position: relative;
-  z-index: var(--z-above);
+  z-index: 2;
   max-width: 800px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
 .hero h1 {
