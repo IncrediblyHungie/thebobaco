@@ -459,10 +459,11 @@
     localStorage.removeItem('testbar-scheme');
     localStorage.removeItem('testbar-custom-bg');
     localStorage.removeItem('testbar-custom-accent');
+    localStorage.removeItem('testbar-overlay-opacity');
     var props = ['--font-display', '--bg', '--bg-alt', '--bg-elevated', '--bg-dark',
       '--text', '--text-muted', '--accent', '--accent-hover', '--accent-light', '--accent-glow',
       '--border', '--border-light', '--overlay', '--overlay-heavy',
-      '--shadow-accent', '--shadow-accent-lg'];
+      '--shadow-accent', '--shadow-accent-lg', '--hero-overlay-opacity'];
     for (var i = 0; i < props.length; i++) {
       document.documentElement.style.removeProperty(props[i]);
     }
@@ -473,6 +474,11 @@
     var accentPicker = document.getElementById('tb-custom-accent');
     if (bgPicker) bgPicker.value = '#0A0A0A';
     if (accentPicker) accentPicker.value = '#FF3D00';
+    /* reset overlay slider */
+    var overlaySlider = document.getElementById('tb-overlay-slider');
+    var overlayValEl = document.getElementById('tb-overlay-val');
+    if (overlaySlider) overlaySlider.value = '0.4';
+    if (overlayValEl) overlayValEl.textContent = '0.4';
   }
 
   function updateActivePills(type, index) {
@@ -687,6 +693,47 @@
     bgInput.addEventListener('input', onPickerChange);
     accentInput.addEventListener('input', onPickerChange);
 
+    /* overlay opacity slider section */
+    var overlaySection = document.createElement('div');
+    overlaySection.className = 'tb-section';
+    overlaySection.innerHTML = '<div class="tb-section-head"><span class="tb-label">Hero Overlay</span><span class="tb-divider"></span></div>';
+
+    var overlayRow = document.createElement('div');
+    overlayRow.className = 'tb-custom';
+
+    var savedOverlay = localStorage.getItem('testbar-overlay-opacity') || '0.4';
+
+    var overlayLabel = document.createElement('span');
+    overlayLabel.className = 'tb-custom-label';
+    overlayLabel.textContent = 'Opacity';
+
+    var overlaySlider = document.createElement('input');
+    overlaySlider.type = 'range';
+    overlaySlider.id = 'tb-overlay-slider';
+    overlaySlider.min = '0';
+    overlaySlider.max = '1';
+    overlaySlider.step = '0.05';
+    overlaySlider.value = savedOverlay;
+    overlaySlider.style.cssText = 'width:180px;cursor:pointer;accent-color:#FF3D00;';
+
+    var overlayVal = document.createElement('span');
+    overlayVal.className = 'tb-color-hex';
+    overlayVal.id = 'tb-overlay-val';
+    overlayVal.textContent = savedOverlay;
+
+    overlaySlider.addEventListener('input', function () {
+      var v = overlaySlider.value;
+      overlayVal.textContent = v;
+      document.documentElement.style.setProperty('--hero-overlay-opacity', v);
+      localStorage.setItem('testbar-overlay-opacity', v);
+    });
+
+    overlayRow.appendChild(overlayLabel);
+    overlayRow.appendChild(overlaySlider);
+    overlayRow.appendChild(overlayVal);
+    overlaySection.appendChild(overlayRow);
+    bar.appendChild(overlaySection);
+
     bar.querySelector('#tb-reset-btn').addEventListener('click', resetAll);
     document.body.appendChild(bar);
   }
@@ -739,6 +786,10 @@
     applyCustomScheme(savedCustomBgInit, savedCustomAccentInit);
   } else if (savedScheme !== null) {
     applyScheme(parseInt(savedScheme, 10));
+  }
+  var savedOverlayInit = localStorage.getItem('testbar-overlay-opacity');
+  if (savedOverlayInit !== null) {
+    document.documentElement.style.setProperty('--hero-overlay-opacity', savedOverlayInit);
   }
 
 })();
